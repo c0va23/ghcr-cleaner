@@ -1,0 +1,18 @@
+name: 'GHCR Cleaner'
+description: 'Remove all untagged images into container registry'
+inputs:
+  githubToken:
+    description: 'Github API Token'
+    required: true
+  packageName:
+    description: 'Target package (container registry)'
+    required: true
+  owner:
+    description: 'Package owner (user or org name)'
+    required: true
+  ownerType:
+    description: 'Package owner type: "user" or "org"'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
