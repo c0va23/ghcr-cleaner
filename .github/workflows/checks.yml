@@ -1,5 +1,7 @@
 on: [push]
 
+name: Checks
+
 concurrency: clean
 
 env:
@@ -8,7 +10,7 @@ env:
 jobs:
   container:
     runs-on: ubuntu-latest
-    name: Clean testing container registry
+    name: Clean container registry
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,3 +31,13 @@ jobs:
           packageName: ${{ env.PACKAGE_NAME }}
           owner: ${{ github.repository_owner }}
           ownerType: user
+  lint:
+    runs-on: ubuntu-latest
+    name: Linting
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: lint
+        run: |
+          npm ci
+          npm run lint
