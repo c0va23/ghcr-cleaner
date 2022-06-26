@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "standard",
+    "plugin:editorconfig/all"
+  ],
+  "plugins": [
+    "editorconfig"
+  ]
+}

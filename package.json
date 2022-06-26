@@ -4,6 +4,7 @@
   "description": "Clean all untagged images",
   "main": "index.js",
   "scripts": {
+    "lint": "npx eslint --format=github-actions .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,5 +27,11 @@
     "@octokit/plugin-paginate-rest": "^2.17.0",
     "@octokit/request-error": "^2.1.0",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-formatter-github-actions": "^1.1.0",
+    "eslint-plugin-editorconfig": "^3.2.0"
   }
 }
