@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "eslint": "^8.18.0",
-    "eslint-config-standard": "^17.0.0"
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-editorconfig": "^3.2.0"
   }
 }
