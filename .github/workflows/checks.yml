@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create untagged image
         run: |
-          echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+          echo ${{ secrets.GITHUB_TOKEN}} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
 
           export IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/${{ env.PACKAGE_NAME }}:latest
           docker build -t ${IMAGE_NAME} -f test.Dockerfile --build-arg VALUE=1 .
@@ -24,13 +24,15 @@ jobs:
 
           docker build -t ${IMAGE_NAME} -f test.Dockerfile --build-arg VALUE=2 .
           docker push ${IMAGE_NAME}
+
       - name: Run `ghcr-cleaner` action
         uses: ./
         with:
-          githubToken: ${{ secrets.GH_TOKEN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
           packageName: ${{ env.PACKAGE_NAME }}
           owner: ${{ github.repository_owner }}
           ownerType: user
+
   lint:
     runs-on: ubuntu-latest
     name: Linting
