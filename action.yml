@@ -14,5 +14,5 @@ inputs:
     description: 'Package owner type: "user" or "org"'
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node16'
+  main: src/action.js
