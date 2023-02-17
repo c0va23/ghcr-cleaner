@@ -4,6 +4,6 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
-COPY ./src ./src
+COPY ./src /opt/ghcr-cleaner/
 
-CMD node ./src/action.js
+CMD node /opt/ghcr-cleaner/action.js
