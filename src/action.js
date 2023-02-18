@@ -22,4 +22,8 @@ const packageCleaner = new PackageCleaner({
   packageName
 })
 
-await packageCleaner.cleanPackage()
+try {
+  await packageCleaner.cleanPackage()
+} catch (err) {
+  console.error(err)
+}

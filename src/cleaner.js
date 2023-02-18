@@ -122,8 +122,6 @@ export class PackageCleaner {
   }
 
   async #catchRequestError (error) {
-    console.error(error)
-
     if (!(error instanceof RequestError)) {
       throw error
     }
