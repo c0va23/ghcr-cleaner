@@ -23,7 +23,9 @@ const packageCleaner = new PackageCleaner({
 })
 
 try {
-  await packageCleaner.cleanPackage()
+  const result = await packageCleaner.cleanPackage()
+
+  GithubCore.setOutput('processedImages', result.successCounter)
 } catch (err) {
   console.error(err)
 }
