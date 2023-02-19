@@ -57,6 +57,8 @@ export class PackageCleaner {
     const ownerType = this.#ownerType
     const packageName = this.#packageName
 
+    let successCounter = 0
+
     while (true) {
       try {
         const packageVersionIterator = this.#octokit.paginate.iterator({
@@ -76,11 +78,12 @@ export class PackageCleaner {
             .filter(isUntaggedPackageVersion)
 
           for (const packageVersionChunk of chunk(untaggedPackageVersions, this.#concurrencySize)) {
-            const deletePromises = packageVersionChunk.map(this.#deletePackageVersion.bind(this))
+            const deletePromises = packageVersionChunk.map(versionId =>
+              this.#deletePackageVersion(versionId)
+                .then(_ => successCounter++)
+            )
 
-            await Promise.all(deletePromises).then(() => {
-              console.debug('Chunk done')
-            })
+            await Promise.all(deletePromises)
           }
         }
 
@@ -88,6 +91,12 @@ export class PackageCleaner {
       } catch (error) {
         await this.#catchRequestError(error)
       }
+    }
+
+    console.log(`Cleaned ${successCounter} packages`)
+
+    return {
+      successCounter
     }
   }
 
@@ -122,8 +131,6 @@ export class PackageCleaner {
   }
 
   async #catchRequestError (error) {
-    console.error(error)
-
     if (!(error instanceof RequestError)) {
       throw error
     }
